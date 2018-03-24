@@ -1,4 +1,4 @@
-<form id="userForm" method="post">
+<form id="userForm" method="post" action="register.php">
 <div class="modal-dialog">
           
             <!-- Modal content-->
