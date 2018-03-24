@@ -1,11 +1,59 @@
+<style>
+  body {
+  font: 12px Montserrat, sans-serif;
+      line-height: 1.5;
+      color: #2E2E2E;}
+    /* Remove the navbar's default margin-bottom and rounded borders */ 
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+     p {font-size: 16px;}
+  .margin {margin-bottom: 16px;}
+  .bg-1 { 
+      background-color: #E4F0F3; 
+      color: #2E2E2E;
+      
+  }
+  
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: 515px}
+    
+    /* Set gray background color and 100% height */
+    .sidenav {
+      padding-top: 40px;
+      background-color: #f1f1f1;
+      height: 160%;
+    }
+    
+    /* Set black background color, white text and some padding */
+    footer {
+      background-color: #555;
+      color: white;
+      padding: 15px;
+    }
+    
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height:auto;} 
+    }
+  </style>
+
 <form class="form-horizontal">
-<div class="panel panel-primary">
-	<div class="panel-heading">
-		<h3>Answer the question</h2>
-	</div>
-	
-	<div class="panel-body">
-		<?php if ($questiontype==1): ?>
+	<div class="container-fluid bg-1">
+  <div class="row content">
+    <div class="col-sm-2 sidenav text-center">
+    <h3> Aufgaben zu:</h3>
+      <p><a href="#">Zahlensysteme</a></p>
+      <p><a href="#">Schaltungen</a></p>
+      <p><a href="#">Assembler</a></p>	  
+    </div>
+    <div class="col-sm-8" style="padding-top: 50px;"> 
+<?php if ($questiontype==1): ?>
 		<div class="col-lg-12 text-center">
 			Convert the following decimal number to binary number:
 		</div>
@@ -66,8 +114,17 @@
 		<div class="col-lg-12 text-center reload" style="display:none;" id="reload">
 			<a href="javascript:reload();"><span>Get new question.</span></a>
 		</div>
-	</div>
-	
+
+  </div>
+    <div class="col-sm-2 sidenav">
+      <div class="well">
+        <button type="button" class="btn" onclick="toggleHint();">Hinweis</button>
+      </div>
+	  <div class="well" id="hint" style="display:none;">
+		<p style="font-size: 12px;">Questions are generated automatically. Do your best!</p>
+	  </div>
+    </div>
+  </div>
 </div>
 
 </form>
@@ -140,6 +197,15 @@
 	
 	function reload(){
 		location.reload(true);
+	}
+	
+	function toggleHint(){
+		var hint = document.getElementById("hint");
+		if (hint.style.display === "none") {
+			hint.style.display = "block";
+		} else {
+			hint.style.display = "none";
+		}
 	}
 	
 	

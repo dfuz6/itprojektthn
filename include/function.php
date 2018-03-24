@@ -37,7 +37,7 @@
 	
 	function redirect($page)
 	{
-		header("Location: http://www.mostosi.de:8009/itprojekt/$page");
+		header("Location: http://localhost/itprojekt/$page");
 		exit;
 	}
 

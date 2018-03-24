@@ -1,49 +1,41 @@
-<div class = "col-lg-offset-2 col-lg-8">
-	<div class="panel panel-primary">
-	<div class="panel-heading text-center">
-		<h2>Register</h2>
-	</div>
-	<div class="panel-body">
-		<div class="">
-		<form class="form-horizontal" id= "userForm" method="post" action="register.php">
-			<div class="form-group" style="margin-top: 10px;">
-				<label class="control-label col-lg-2" for="usernameInput">Username:</label>
-				<div class="col-lg-10">
-					<input type="text" class="form-control " id="usernameInput" name="usernameInput" required/>
-				</div>
-			</div>
-			
-			<div class="form-group" style="margin-top: 10px;">
-				<label class="control-label col-lg-2" for="passwordInput">Password:</label>
-				<div class="col-lg-10">
-					<input type="password" onkeyup="checkIfPasswordMatch();" class="form-control" id = "passwordInput" name = "passwordInput" required/>
-				</div>
-			</div>
-			
-			<div class="form-group" style="margin-top: 10px;">
-				<label class="control-label col-lg-2" for="confirmationInput">Confirm Password:</label>
-				<div class="col-lg-10">
-					<input type="password" onkeyup="checkIfPasswordMatch();" class="form-control" id="confirmationInput" style="width:100%" required/>
+<form id="userForm" method="post">
+<div class="modal-dialog">
+          
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header" style="padding:35px 50px;">
+                <button type="button" style= "color: black;" class="close" data-dismiss="modal">&times;</button>
+                <h4><span class="glyphicon glyphicon-lock"></span> Registrieren</h4>
+              </div>
+              <div class="modal-body" style="padding:40px 50px;">
+                <form role="form">
+                  <div class="form-group">
+                    <label for="usrnameInput"><span class="glyphicon glyphicon-user"></span> Username</label>
+                    <input type="text" class="form-control" id="usernameInput" name="usernameInput" placeholder="Enter username">
+                  </div>
+                  <div class="form-group">
+                    <label for="passwordInput"><span class="glyphicon glyphicon-eye-open"></span> Password</label>
+                    <input type="password" onkeyup="checkIfPasswordMatch();" class="form-control" id = "passwordInput" name = "passwordInput" required placeholder="Enter password">
+                  </div>
+				  <div class="form-group">
+                    <label for="confirmationInput"><span class="glyphicon glyphicon-eye-open"></span> Password bestätigen</label>
+                    <input type="password" onkeyup="checkIfPasswordMatch();" class="form-control" id="confirmationInput" required placeholder="Confirm password">
 					<p style="color:red; display:none;" id="confirmation_alert"></p>
-				</div>
-			</div>
-			
-			<div class="form-group" style="margin-top: 10px;">
-				<label class="control-label col-lg-2" for="emailInput">Email:</label>
-				<div class="col-lg-10">
-					<input type="text" class="form-control" id="emailInput" />
-				</div>
-			</div>
-		<div class="text-center">
-			<input type="button" class="btn btn-success" value="Submit" style="width:100%;" id="registerSubmit" onclick="submitForm();" />
-		</div>
-		</form>
-		</div>
-</div>
-
-</div>
-
-</div>
+                  </div>
+				  <div class="form-group">
+                    <label for="usrnameInput"><span class="glyphicon glyphicon-user"></span> Email </label>
+                    <input type="text" class="form-control" id="emailInput" placeholder="Enter email">
+                  </div>
+                    <button class="btn btn-success btn-block" id="registerSubmit" onclick="submitForm();"><span class="glyphicon glyphicon-off"></span>Registrieren</button>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <p>Already a member? <a href="login.php"><font color="#B40404">Login</font></a></p>
+              </div>
+            </div>
+            
+          </div>
+</form>
 <script>
 
 	
