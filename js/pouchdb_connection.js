@@ -1,5 +1,5 @@
-var db = new PouchDB('mydb3');
-	var remoteDB = new PouchDB('http://localhost:5984/users'); 
+var db = new PouchDB('mydb4');
+	var remoteDB = new PouchDB('http://www.mostosi.de:5984/users'); 
 	this.db.sync(remoteDB, {
 		live: true,
 		retry: true
@@ -8,4 +8,5 @@ var db = new PouchDB('mydb3');
 	    }).on('error', function (err) {
 		console.log('sync error', err)
 	});
+	
 	

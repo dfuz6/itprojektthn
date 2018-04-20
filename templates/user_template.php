@@ -1,68 +1,36 @@
-<table class="table table-striped" style="text-align:center;">
-    <thead>
-      <tr>
-        <th  style="text-align:center">Username</th>
-        <th style="text-align:center">Email</th>
-        <th style="text-align:center">_id</th>
-	  
-	  <th style="text-align:center">Action</th>
-      </tr>
-    </thead>
-    <tbody id="userTable">
-    </tbody>
-</table>
-<script>
 
-	refreshView();
-	
-	function refreshView(){
-		var table = document.getElementById("userTable");
-		table.innerHTML='loading...';
-		db.allDocs({
-			include_docs: true,
-			attachments: true
+<div id="user-name">
+	loading...
+</div>
+<div id="user-email">
+	loading...
+</div>
+<div id="user-points">
+	loading...
+</div>
+
+<script>
+	loadUser();
+	function loadUser(){
+		db.createIndex({
+			index: {fields: ['username']}
+			}).then(function(){
+			db.find({
+			selector: {username: '<?= $username; ?>', type:'user'},
+			fields: ['_id', 'username', 'email', 'score']
 		    }).then(function (result) {
-			table.innerHTML='';
-			for(var i = 0; i < result.rows.length; i++){
-				let user = result.rows[i].doc;
-				var rows = document.createElement("tr");
-				var username = document.createElement("td");
-				username.innerHTML = user.username;
-				var email = document.createElement("td");
-				email.innerHTML = user.email;
-				
-				var id = document.createElement("td");
-				id.innerHTML = user._id;
-				var actionCol = document.createElement("td");
-				var action = document.createElement("span");
-				action.onclick = function(){
-					deletedoc(user);
-				}
-				action.className = "glyphicon glyphicon-trash";
-				actionCol.appendChild(action);
-				rows.appendChild(username);
-				rows.appendChild(email);
-				rows.appendChild(id);
-				rows.appendChild(actionCol);
-				table.appendChild(rows);
-				//table.innerHTML += "<tr>"+ "<td>" + user.username + "</td>"+ "<td>"+ user.email + "</td>"+"<td>"+"<span class='glyphicon glyphicon-trash';'></span>"+"</td>"+"</tr>";
+			console.log(result);
+			document.getElementById('user-name').innerHTML='<h3>' + result.docs[0].username + '</h3>';
+			document.getElementById('user-email').innerHTML='<strong>' + result.docs[0].email + '</strong>';
+			if(result.docs[0].score == null){
+				document.getElementById('user-points').innerHTML='<strong>' + "Score: " + '</strong>' + 0 ;
+			}else{
+				document.getElementById('user-points').innerHTML='<strong>' + "Score: " + '</strong>' + result.docs[0].score ;
 			}
 		    }).catch(function (err) {
 			console.log(err);
 		    });
+		});
 	}
-	
-	function deletedoc(user){
-		db.get(user._id).then(function(doc) {
-			console.log(doc); 
-			doc._deleted = true;
-			return db.put(doc);
-		    }).then(function (result) {
-				console.log(result);
-				refreshView();
-		    }).catch(function (err) {
-			console.log(err);
-			alert("User can not be deleted. Please try again later.");
-		    });
-	}
+
 </script>

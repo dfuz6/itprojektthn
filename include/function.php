@@ -35,9 +35,20 @@
 		else trigger_error("Template does not existed", E_USER_ERROR);
 	}
 	
+	function renderSideMenu($template, $value = array()){
+		if(file_exists("templates/$template"))
+		{
+			extract($value);
+			
+            require("templates/$template");
+		}
+		
+		else trigger_error("Template does not existed", E_USER_ERROR);
+	}
+	
 	function redirect($page)
 	{
-		header("Location: http://localhost/itprojekt/$page");
+		header("Location: $page");
 		exit;
 	}
 

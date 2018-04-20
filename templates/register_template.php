@@ -4,7 +4,6 @@
             <!-- Modal content-->
             <div class="modal-content">
               <div class="modal-header" style="padding:35px 50px;">
-                <button type="button" style= "color: black;" class="close" data-dismiss="modal">&times;</button>
                 <h4><span class="glyphicon glyphicon-lock"></span> Registrieren</h4>
               </div>
               <div class="modal-body" style="padding:40px 50px;">
@@ -26,11 +25,11 @@
                     <label for="usrnameInput"><span class="glyphicon glyphicon-user"></span> Email </label>
                     <input type="text" class="form-control" id="emailInput" placeholder="Enter email">
                   </div>
-                    <button class="btn btn-success btn-block" id="registerSubmit" onclick="submitForm();"><span class="glyphicon glyphicon-off"></span>Registrieren</button>
+                    <button class="btn btn-info btn-block" id="registerSubmit" onclick="submitForm();"><span class="glyphicon glyphicon-off"></span>Registrieren</button>
                 </form>
               </div>
               <div class="modal-footer">
-                <p>Already a member? <a href="login.php"><font color="#B40404">Login</font></a></p>
+                <p>Already a member? <a href="login.php"><font color="">Login</font></a></p>
               </div>
             </div>
             
@@ -65,7 +64,8 @@ function submitForm(){
 		type: "user",
 		username: _username,
 		password:_password,
-		email:_email
+		email:_email,
+		score: 0
 	};
 	console.log(user);
 		

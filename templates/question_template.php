@@ -1,61 +1,22 @@
-<style>
-  body {
-  font: 12px Montserrat, sans-serif;
-      line-height: 1.5;
-      color: #2E2E2E;}
-    /* Remove the navbar's default margin-bottom and rounded borders */ 
-    .navbar {
-      margin-bottom: 0;
-      border-radius: 0;
-    }
-     p {font-size: 16px;}
-  .margin {margin-bottom: 16px;}
-  .bg-1 { 
-      background-color: #E4F0F3; 
-      color: #2E2E2E;
-      
-  }
-  
-    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
-    .row.content {height: 515px}
-    
-    /* Set gray background color and 100% height */
-    .sidenav {
-      padding-top: 40px;
-      background-color: #f1f1f1;
-      height: 160%;
-    }
-    
-    /* Set black background color, white text and some padding */
-    footer {
-      background-color: #555;
-      color: white;
-      padding: 15px;
-    }
-    
-    /* On small screens, set height to 'auto' for sidenav and grid */
-    @media screen and (max-width: 767px) {
-      .sidenav {
-        height: auto;
-        padding: 15px;
-      }
-      .row.content {height:auto;} 
-    }
-  </style>
+
 
 <form class="form-horizontal">
-	<div class="container-fluid bg-1">
+	<div class="">
   <div class="row content">
-    <div class="col-sm-2 sidenav text-center">
-    <h3> Aufgaben zu:</h3>
-      <p><a href="#">Zahlensysteme</a></p>
-      <p><a href="#">Schaltungen</a></p>
-      <p><a href="#">Assembler</a></p>	  
-    </div>
-    <div class="col-sm-8" style="padding-top: 50px;"> 
+    <?php renderSideMenu('side_menu_left.php'); ?>
+    <div class="col-sm-8" style="padding-top: 50px;">
+			<div class="alert alert-success" style="display:none;" id="correct-answer">
+			<span>Gut gemacht!<a href="javascript:reload();"> Neue Frage.</a></span>
+		</div>
+		<div class="alert alert-danger" style="display:none;" id="hex-wrong-answer">
+			<span>Leider falsch. Die richtige Antwort lautet:  </span> <span id="hexNumberAnswer"></span><a href="javascript:reload();">. Neue Frage.</a>
+		</div>
+		<div class="alert alert-danger" style="display:none;" id="wrong-answer">
+			<span>Leider falsch. Die richtige Antwort lautet: </span> <span id="decNumberAnswer"></span><a href="javascript:reload();">. Neue Frage.</a>
+		</div>
 <?php if ($questiontype==1): ?>
 		<div class="col-lg-12 text-center">
-			Convert the following decimal number to binary number:
+			Konvertiere die gegebene Dezimalzahl in eine Binärzahl:
 		</div>
 		<?php endif;?>
 		<?php if($questiontype==2): ?>
@@ -67,14 +28,14 @@
 		<?php endif;?>
 
 		<div class="form-group">
-			<label class="control-label col-lg-2 for="decNumber">Decimal:</label>
+			<label class="control-label col-lg-2 for="decNumber">Dezimal:</label>
 			<div class="col-lg-10">
 			  <p class="form-control-static" id="decNumber"></p>
 			</div>
 		</div>
 		<?php if($questiontype==1): ?>
 		<div class="form-group">
-			<label class="control-label col-lg-2 for="biNumber">Binary:</label>
+			<label class="control-label col-lg-2 for="biNumber">Binär:</label>
 			<div class="col-lg-10">
 			  <input type = "text" class="form-control" id="biNumberInput" onkeypress="validateInput(event);"/>
 			</div>
@@ -82,7 +43,7 @@
 		<?php endif; ?>
 		<?php if($questiontype==2): ?>
 		<div class="form-group">
-			<label class="control-label col-lg-2 for="hexNumber">Hex:</label>
+			<label class="control-label col-lg-2 for="hexNumber">Hexadezimal:</label>
 			<div class="col-lg-10">
 			  <input type = "text" class="form-control" id="hexNumberInput" onkeypress="validateHexInput(event);"/>
 			</div>
@@ -91,38 +52,46 @@
 		<?php if($questiontype==1): ?>
 
 		<div class="col-lg-12 text-center" style="margin-top: 15px;">
-			<input type="button" class="btn btn-primary" value ="Submit Answer" style="width:60%;" onclick="submitAnswer();"/>
+			<input type="button" class="btn btn-info" value ="Abgabe" style="width:60%;" onclick="submitAnswer();"/>
 		</div>
 		<div class="col-lg-12 text-center" style="color:green; display:none;" id="correct-answer">
 			<span>Gut gemacht!</span>
 		</div>
 		<div class="col-lg-12 text-center" style="color:red; display:none;" id="wrong-answer">
-			<span >Falshe Antwort. Richtige Antwort war  </span> <span id="decNumberAnswer"></span>
+			<span>Leider falsch. Die richtige Antwort lautet: </span> <span id="decNumberAnswer"></span>
 		</div>
 		<?php endif; ?>
 		<?php if($questiontype==2): ?>
 		<div class="col-lg-12 text-center" style="margin-top: 15px;">
-			<input type="button" class="btn btn-primary" value ="Submit Answer" style="width:60%;" onclick="submitHexAnswer();"/>
+			<input type="button" class="btn btn-info" value ="Abgabe" style="width:60%;" onclick="submitHexAnswer();"/>
 		</div>
-		<div class="col-lg-12 text-center" style="color:green; display:none;" id="hex-correct-answer">
-			<span>Gut gemacht!</span>
-		</div>
-		<div class="col-lg-12 text-center" style="color:red; display:none;" id="hex-wrong-answer">
-			<span >Falshe Antwort. Richtige Antwort war  </span> <span id="hexNumberAnswer"></span>
-		</div>
+		
 		<?php endif;?>
 		<div class="col-lg-12 text-center reload" style="display:none;" id="reload">
-			<a href="javascript:reload();"><span>Get new question.</span></a>
+			
 		</div>
 
   </div>
-    <div class="col-sm-2 sidenav">
-      <div class="well">
-        <button type="button" class="btn" onclick="toggleHint();">Hinweis</button>
+    <div class="col-sm-2 sidenav text-center">
+      <div class="panel panel-info">
+          <div class="panel-body">
+            <button type="button" class="btn btn-info" onclick="toggleHint();"><span class="glyphicon glyphicon-info-sign"></span> Hinweis</button>
+          </div>
+        </div>
+  
+        <div class="panel panel-info">
+      <div class="panel-heading">
+        <span class="panel-title">Bestenliste</span>
       </div>
-	  <div class="well" id="hint" style="display:none;">
-		<p style="font-size: 12px;">Questions are generated automatically. Do your best!</p>
+      <div class="panel-body">
+        <?php require('leaderboard_template.php'); ?>
+      </div>
+      </div>
+        
+      <div class="well" id="hint" style="display:none;">
+		<p style="font-size: 12px;">Wähle ein Modul</p>
 	  </div>
+    </div>
     </div>
   </div>
 </div>
@@ -130,6 +99,10 @@
 </form>
 
 <script>
+  console.log('<?= $username; ?>');
+  submitPoint(1).then(function(result){
+    console.log(result);
+  });
 	var decNumber = Math.floor(Math.random() * 1001);
 	document.getElementById("decNumber").innerHTML = "<strong>"+decNumber.toString()+"</strong>";
 	function dec2Bin(dec){
@@ -172,8 +145,10 @@
 		var binary = dec2Bin(decNumber);
 		var binInput = document.getElementById("biNumberInput").value;
 		document.getElementById("biNumberInput").readOnly=true;
-		document.getElementById("reload").style.display="block";
 		if(binInput == binary.toString()){
+      submitPoint(1).then(function(result){
+          db.put(result);
+      });
 			document.getElementById("correct-answer").style.display="block";
 		}else{
 			document.getElementById("wrong-answer").style.display="block";
@@ -186,9 +161,11 @@
 		var hexInput = document.getElementById("hexNumberInput").value;
 		hexInput = hexInput.toLowerCase();
 		document.getElementById("hexNumberInput").readOnly=true;
-		document.getElementById("reload").style.display="block";
 		if(hexInput == hex.toString()){
-			document.getElementById("hex-correct-answer").style.display="block";
+       submitPoint(2).then(function(result){
+          db.put(result);
+      });
+			document.getElementById("correct-answer").style.display="block";
 		}else{
 			document.getElementById("hex-wrong-answer").style.display="block";
 			document.getElementById("hexNumberAnswer").innerHTML="<strong>" + hex.toString() + "</strong>";
@@ -207,6 +184,27 @@
 			hint.style.display = "none";
 		}
 	}
+  
+  function submitPoint(score){
+    return new Promise(function(resolve) {
+        //Without new Promise, this throwing will throw an actual exception
+      db.createIndex({
+			index: {fields: ['username']}
+			}).then(function(){
+			db.find({
+			selector: {username: '<?= $username; ?>', type:'user'},
+			fields: ['_id', '_rev', 'username', 'email', 'password', 'score', 'type']
+		    }).then(function (result) {
+          console.log(result);
+          if(result.docs[0].score == null){
+            result.docs[0].score = 0;
+          }
+          result.docs[0].score+=score;
+          resolve(result.docs[0]);
+		    });
+    });
+    });
+  }
 	
 	
 </script>
